@@ -47,8 +47,6 @@ def main():
         choice = input("Enter Choice: ")
         if choice == "1":
             add_player()
-            # need to add the y/n i can revert it back the old way but it should be in here u can set
-            # add_player to a variable and if it equals "Completed" (currently can change that upove) and check that way idk
         elif choice == "2":
             print("Player's Name | Player's Score")
             for player,score in retrieve_scores(): # display the values returned
