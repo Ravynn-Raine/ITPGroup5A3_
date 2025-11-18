@@ -26,7 +26,14 @@ def add_player():
             else:
                 print("Please enter a valid score")
         score_dict[player_name] = player_score #Add to dict "PlayerName:PlayerScore"
-        return "Completed"
+        while True: # Loop for checking for another player
+            new_player = input("Do you want to add another player? (y/n) ")
+            if new_player.lower() == "y" or new_player.lower() == "yes":
+                return add_player()
+            elif new_player.lower() == "n" or new_player.lower() == "no":
+                return
+            else:
+                print("Please enter a valid option. (yes, no, y, n)")
     except Exception as e:
         print(f"An Error Occoured: {e}")
 
