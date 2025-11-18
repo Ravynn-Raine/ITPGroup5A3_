@@ -29,9 +29,9 @@ def add_player():
         while True: # Loop for checking for another player
             new_player = input("Do you want to add another player? (y/n) ")
             if new_player.lower() == "y" or new_player.lower() == "yes":
-                return add_player()
+                return add_player() #Start the loop again
             elif new_player.lower() == "n" or new_player.lower() == "no":
-                return
+                return #Return to main menu
             else:
                 print("Please enter a valid option. (yes, no, y, n)")
     except Exception as e:
