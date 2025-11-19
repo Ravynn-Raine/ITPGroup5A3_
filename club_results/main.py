@@ -5,20 +5,24 @@ score_dict = {}
 def save_scores():
     with open("data.json", "w") as f:
         json.dump(score_dict, f, indent=4)
+
 def load_scores():
     with open("data.json", "r") as f:
         loaded = json.load(f)
     score_dict.update(loaded)
+
 def validate_score(score: str) -> bool:
     if score.isdigit() and 1 <= int(score) <= 100:
         return True
     else:
         return False
+
 def validate_name(name: str) -> bool:
     if all(char.isalpha() or char.isspace() for char in name) and name.strip():
         return True
     else:
         return False
+
 def retrieve_scores():
     try:
         for player, score in score_dict.items(): # itterate over items in score dict
