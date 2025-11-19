@@ -1,36 +1,37 @@
 import json
+import os
 
 score_dict = {}
 
-def save_scores():
+def save_scores():#save score func
     with open("data.json", "w") as f:
         json.dump(score_dict, f, indent=4)
 
-def load_scores():
+def load_scores():#load score func
     with open("data.json", "r") as f:
         loaded = json.load(f)
     score_dict.update(loaded)
 
-def validate_score(score: str) -> bool:
+def validate_score(score: str) -> bool:#check if score is valid
     if score.isdigit() and 1 <= int(score) <= 100:
         return True
     else:
         return False
 
-def validate_name(name: str) -> bool:
-    if all(char.isalpha() or char.isspace() for char in name) and name.strip():
+def validate_name(name: str) -> bool:#check if name is valid
+    if all(char.isalpha() or char.isspace() for char in name) and name.strip() and len(name) > 5:
         return True
     else:
         return False
 
-def retrieve_scores():
+def retrieve_scores():#retrieve and return scores
     try:
         for player, score in score_dict.items(): # itterate over items in score dict
             yield player, score # return them one by one
     except Exception as e:
         print(f"An Error Occoured: {e}")
 
-def add_player():
+def add_player():#add player to dict
     try:
         while True: #Player name loop & validility
             player_name = input("Enter The Players Full Name: ") #Retrieve Input
@@ -57,7 +58,7 @@ def add_player():
                 return #Return to main menu
             else:
                 print("Please enter a valid option. (yes, no, y, n) ")
-def main():
+def main():#main loop for UI
     while True:
         print("=======")
         print("(1) Add Player")
@@ -77,6 +78,10 @@ def main():
         else:
             print("Please enter a valid option")
 
-if __name__ == "__main__":
-    load_scores()
+if __name__ == "__main__":#startup checks and init
+    if os.path.exists("data.json"): #check if file exists
+        load_scores()
+    else:
+        with open("data.json", "a"):# if it doesnt create it
+            pass
     main()
