@@ -1,5 +1,24 @@
+import json
+
 score_dict = {}
 
+def save_scores():
+    with open("data.json", "w") as f:
+        json.dump(score_dict, f, indent=4)
+def load_scores():
+    with open("data.json", "r") as f:
+        loaded = json.load(f)
+    score_dict.update(loaded)
+def validate_score(score: str) -> bool:
+    if score.isdigit() and 1 <= int(score) <= 100:
+        return True
+    else:
+        return False
+def validate_name(name: str) -> bool:
+    if all(char.isalpha() or char.isspace() for char in name) and name.strip():
+        return True
+    else:
+        return False
 def retrieve_scores():
     try:
         for player, score in score_dict.items(): # itterate over items in score dict
@@ -11,29 +30,26 @@ def add_player():
     try:
         while True: #Player name loop & validility
             player_name = input("Enter The Players Full Name: ") #Retrieve Input
-            if all(char.isalpha() or char.isspace() for char in player_name) and player_name.strip(): #Validate Input
+            if validate_name(player_name): #Validate Input
                 break
             else:
                  print("Please enter a valid player's name.")
         while True: #Player score loop & validility
             player_score = input("Enter a players score: ") #Retrieve Input
-            if player_score and player_score.isdigit(): #Validate Input
-                player_score = int(player_score) #Convert Input
-                if player_score <= 100 and player_score >= 1:#Validate again
-                    break
-                else:
-                    print("Please enter a valid score between 1-100")
+            if validate_score(player_score): #Validate Input
+                break
             else:
                 print("Please enter a valid score")
         score_dict[player_name] = player_score #Add to dict "PlayerName:PlayerScore"
     except Exception as e:
         print(f"An Error Occoured: {e}")
     finally:
-        while True:
+        while True: #Return or add another player loop
             new_player = input("Do you want to add another player? (y/n) ")
             if new_player.lower() == "y" or new_player.lower() == "yes":
                 return add_player()#Start main loop
             elif new_player.lower() == "n" or new_player.lower() == "no":
+                save_scores()
                 return #Return to main menu
             else:
                 print("Please enter a valid option. (yes, no, y, n) ")
@@ -58,4 +74,5 @@ def main():
             print("Please enter a valid option")
 
 if __name__ == "__main__":
+    load_scores()
     main()
