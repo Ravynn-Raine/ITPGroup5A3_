@@ -12,6 +12,7 @@ def main():#Main function loop
     while True:
         try:
             speed=int(input("Enter the speed of the ball (in meters per minute): "))#Get user input for distance
+
             time=int(input("How many minutes has the ball travelled: "))#Get user input for time
 
             assert speed >= 0#Check if input is a negative number
@@ -25,6 +26,8 @@ def main():#Main function loop
         except KeyboardInterrupt:
             print("Goodbye")
             break
+        except AssertionError:#Check for negative number
+            print("Invalid Input: Please only enter positive numbers.")
         except ZeroDivisionError:#Check for Zero Division
             print("Error: Division by Zero is not allowed.")
 
