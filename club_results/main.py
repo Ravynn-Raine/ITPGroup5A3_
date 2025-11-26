@@ -19,7 +19,7 @@ def validate_score(score: str) -> bool:#check if score is valid
         return False
 
 def validate_name(name: str) -> bool:#check if name is valid
-    if all(char.isalpha() or char.isspace() for char in name) and name.strip() and len(name) > 5:
+    if all(char.isalpha() or char.isspace() for char in name) and name.strip() and len(name.split()) > 1:
         return True
     else:
         return False
@@ -39,12 +39,14 @@ def add_player():#add player to dict
                 break
             else:
                  print("Please enter a valid player's name.")
+
         while True: #Player score loop & validility
             player_score = input("Enter a players score: ") #Retrieve Input
             if validate_score(player_score): #Validate Input
                 break
             else:
                 print("Please enter a valid score")
+
         score_dict[player_name] = player_score #Add to dict "PlayerName:PlayerScore"
     except Exception as e:
         print(f"An Error Occoured: {e}")
@@ -58,21 +60,26 @@ def add_player():#add player to dict
                 return #Return to main menu
             else:
                 print("Please enter a valid option. (yes, no, y, n) ")
+
 def main():#main loop for UI
     while True:
-        print("=======")
-        print("(1) Add Player")
-        print("(2) Display Player")
+        print("="*30)
+        print("**Welcome to Champions Soccer Club**")
+        print("Please choose one of the following:")
+        print("(1) Add player name and score.")
+        print("(2) Display all the player information and scores.")
         print("(q) Quit")
-        print("=======")
+        print("="*30)
+
         choice = input("Enter Choice: ")
         if choice == "1":
-            add_player()
+            add_player()#Call add_player func to add player to dict
         elif choice == "2":
-            print("Player's Name | Player's Score")
+            print(f"{'Players Name':^15} | {'Players Score':^15}")
+            print("-"*33)
             for player,score in retrieve_scores(): # display the values returned
-                print(f"{player} | {score}") # you will need to fix the display just here for testing
-        elif choice.lower() == "q":
+                print(f"{player:^15}  {score:^15}") # you will need to fix the display just here for testing
+        elif choice.lower() == "q":# check for option to quit
             print("Goodbye")
             break
         else:
