@@ -86,9 +86,12 @@ def main():#main loop for UI
             print("Please enter a valid option")
 
 if __name__ == "__main__":#startup checks and init
-    if os.path.exists("data.json"): #check if file exists
-        load_scores()
-    else:
-        with open("data.json", "a"):# if it doesnt create it
-            pass
+    try:
+        if os.path.exists("data.json"): #check if file exists
+            load_scores()
+        else:
+            with open("data.json", "a"):# if it doesnt create it
+                pass
+    except json.JSONDecodeError:
+        score_dict = {}
     main()
